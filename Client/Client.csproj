@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="32.1.23" />
+    <PackageReference Include="Syncfusion.Blazor" Version="32.1.23" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="32.1.23" />
   </ItemGroup>
 
@@ -18,5 +18,16 @@
   <ItemGroup>
 	<ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
+
+	<Target Name="RemoveUnusedSyncfusionThemes" AfterTargets="Publish">
+
+		<ItemGroup>
+			<FilesToRemove Include="$(PublishDir)wwwroot/_content/Syncfusion.Blazor.Themes/**" Exclude="$(PublishDir)wwwroot/_content/Syncfusion.Blazor.Themes/bootstrap5.css;" />
+		</ItemGroup>
+
+		<!-- Remove the files -->
+		<Delete Files="@(FilesToRemove)" />
+
+	</Target>
 
 </Project>
